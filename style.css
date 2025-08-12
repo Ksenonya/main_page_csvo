@@ -11,7 +11,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center; /* Выравнивает по вертикали */
-  padding: 30px 40px;
+  padding: 40px 40px;
 }
 
 /* Заголовок ЦСВО */
