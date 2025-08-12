@@ -1,0 +1,96 @@
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ЦСВО</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+<header>
+  <div class="csvo-title">ЦСВО</div>
+  <nav class="top-nav">
+    <a href="#">Главная</a>
+    <a href="https://ksenonya.github.io/csvo-reporsts-site/" rel="noopener noreferrer">Аналитика</a>
+    <a href="https://ioe.hse.ru/cshe/" target="_blank" rel="noopener noreferrer">Контакты</a>
+  </nav>
+</header>
+  
+  <!-- Фигуры и волны -->
+<div class="bg-shapes">
+<!-- Оптимизированные фигуры -->
+<div class="bg-shapes">
+  <div class="shape orange" style="width: 320px; height: 320px; top: -80px; left: -120px;"></div>
+  <div class="shape blue" style="width: 180px; height: 180px; top: 160px; right: -90px;"></div>
+  <div class="shape deepblue" style="width: 100px; height: 100px; top: 400px; left: 10%;"></div>
+  <div class="shape blue" style="width: 140px; height: 140px; bottom: 180px; left: 65%;"></div>
+</div>
+  
+ <!-- ВОЛНА В ПРАВОМ ВЕРХНЕМ УГЛУ -->
+  <div class="wave-top-right-blur">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#FF7A2F" fill-opacity="1" d="M0,160L60,165.3C120,171,240,181,360,176C480,171,600,149,720,160C840,171,960,213,1080,229.3C1200,245,1320,235,1380,229.3L1440,224V0H1380C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0H0Z"></path>
+    </svg>
+  </div>
+
+  <div class="background-elements">
+    <!-- Белые полупрозрачные круги -->
+    <div class="white-fade" style="bottom: 80px; left: 10%;"></div>
+    <div class="white-fade" style="bottom: 40px; right: 20%; width: 180px; height: 180px;"></div>
+
+    <!-- Цветные круги -->
+    <div class="circle" style="top: 1000px; left: 7%; width: 30px; height: 30px; background: #7FCDF4;"></div>
+    <div class="circle" style="top: 900px; left: 10%; width: 70px; height: 70px; background: #7FCDF4;"></div>
+    <div class="circle" style="top: 400px; right: 20%; width: 50px; height: 50px; background: #FF7A2F;"></div>
+    <div class="circle" style="top: 700px; left: 40%; width: 60px; height: 60px; background: #7FCDF4;"></div>
+    <div class="circle" style="bottom: 120px; right: 15%; width: 45px; height: 45px; background: #2575e7;"></div>
+
+    <!-- Крестики -->
+    <svg class="cross" viewBox="0 0 100 100" style="bottom: 100px; right: 20%; width: 50px; height: 2000px; opacity: 0.15;">
+      <line x1="0" y1="0" x2="100" y2="100" stroke="#ffffff" stroke-width="5" />
+      <line x1="100" y1="0" x2="0" y2="100" stroke="#ffffff" stroke-width="5" />
+    </svg>
+  </div>
+  
+  <div class="hero">
+    <h1>Привет!</h1>
+    <p>
+      Мы — команда <a href="https://ioe.hse.ru/cshe/" target="_blank"><span>Центра социологии высшего образования</span></a>, 
+      которая занимается исследованиями российских аспирантов. На этой странице мы собрали основные результаты исследований нашей команды, 
+      а также коллег из <a href="https://issek.hse.ru/?ysclid=mdr9wc6v81136132354" target="_blank"><span>ИСИЭЗ</span></a> и 
+      <a href="http://www.unn.ru/?utm_source%3Dmindbox=" target="_blank"><span>ННГУ</span></a>. 
+      Это семь тезисов о российской аспирантуре — о том, кто приходит в аспирантуру, чего ждёт, с чем сталкивается и как использует этот опыт после.
+    </p>
+  </div>
+
+  <div class="cards">
+    <div class="card" onclick="toggleCard(this)">
+      <h3>Аспиранты в России становятся все более разнообразными</h3>
+      <button>Подробнее</button>
+      <div class="card-content">
+        <p>Портрет аспирантов становится более разнообразным по полу, возрасту и региону.</p>
+      </div>
+    </div>
+    <!-- Остальные карточки по тому же шаблону -->
+  <div class="card" onclick="toggleCard(this)">
+      <h3>Аспиранты в России становятся все более разнообразными</h3>
+      <button>Подробнее</button>
+      <div class="card-content">
+        <p>Портрет аспирантов становится более разнообразным по полу, возрасту и региону.</p>
+      </div>
+    </div>
+    
+    <div class="card" onclick="toggleCard(this)">
+      <h3>Аспиранты в России становятся все более разнообразными</h3>
+      <button>Подробнее</button>
+      <div class="card-content">
+        <p>Портрет аспирантов становится более разнообразным по полу, возрасту и региону.</p>
+      </div>
+    </div>
+
+  <script src="script.js"></script>
+  
+
+</body>
+</html>
