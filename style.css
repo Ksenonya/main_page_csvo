@@ -1,0 +1,242 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #0c1c4d;
+  overflow-x: hidden;
+  color: #fff;
+}
+
+/* Шапка */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Выравнивает по вертикали */
+  padding: 20px 40px;
+}
+
+/* Заголовок ЦСВО */
+.csvo-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: left;  /* Выравнивание текста по левому краю */
+  position: absolute; /* Абсолютное позиционирование */
+  top: 20px; /* Отступ от верхнего края */
+  left: 40px; /* Отступ от левого края */
+  z-index: 2; /* Для того, чтобы он был поверх других элементов */
+}
+
+/* Меню */
+.top-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 40px;
+  font-size: 16px;
+}
+
+.top-nav a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+}
+
+.top-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #7FCDF4;
+  transition: width 0.3s ease;
+}
+
+.top-nav a:hover::after {
+  width: 100%;
+}
+
+
+/* Hero */
+.hero {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 780px;
+  margin: 60px auto;
+  backdrop-filter: blur(12px);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.hero a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero a span {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.hero a:hover span {
+  border-color: #7FCDF4;
+  text-shadow: 0 0 8px rgba(127, 205, 244, 0.8);
+}
+
+/* Карточки */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 100px 80px;
+  padding: 60px;
+}
+
+.card {
+  background: #ffffff;
+  width: 500px;
+  padding: 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+
+.card.visible {
+  opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.3),  /* внешний мягкий ореол */
+    0 8px 20px rgba(0,0,0,0.2);          /* стандартная тень вниз */
+}
+
+
+.card h3 {
+  margin: 0 0 16px;
+  line-height: 1.8;
+  color: #0C1C4D;
+  font-size: 20px;
+}
+
+.card button {
+  display: block;
+  margin: 16px 0;
+  background: #72c1e9;
+  color: #0C1C4D;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.card-content {
+  transition: max-height 0.6s ease, opacity 0.6s ease;
+  line-height: 1.8;
+  font-size: 18px;
+  color: #0C1C4D;
+}
+
+.card.expanded .card-content {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 12px;
+}
+
+/* Фоновые элементы */
+.background-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.circle, .dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  filter: blur(3px);
+  opacity: 0.5;
+}
+
+.white-fade {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  filter: blur(40px);
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Фигуры фона */
+.bg-shapes .shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.25;
+  /* animation: float 8s ease-in-out infinite;  <-- УБРАЛ ЭТУ СТРОКУ */
+  z-index: 0;
+  filter: blur(5px);
+}
+.shape.orange {
+  background-color: #FF7A2F;
+}
+.shape.blue {
+  background-color: #7FCDF4;
+}
+.shape {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  left: -100px;
+}
+.shape.small {
+  width: 100px;
+  height: 100px;
+  bottom: 100px;
+  left: 50px;
+}
+.shape.mid {
+  width: 120px;
+  height: 120px;
+  top: 200px;
+  left: 30%;
+}
+.shape.mini {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 60%;
+}
+
+.wave-top-right-blur {
+  position: absolute;
+  top: -100px;       /* чуть выше */
+  right: -100px;     /* чуть правее */
+  width: 520px;      /* увеличили ширину */
+  height: 280px;     /* увеличили высоту */
+  opacity: 0.4;      /* ярче (было 0.25) */
+  z-index: 0;
+  filter: blur(5px); /* мягкое размытие */
+}
+
+.wave-top-right-blur svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
