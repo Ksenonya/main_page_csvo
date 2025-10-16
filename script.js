@@ -41,7 +41,7 @@ if (elPyr) {
         {
           label: 'Женщины',
           data: [4142, 19079, 6060, 3825, 4632],
-          backgroundColor: '#FF7AAE',
+          backgroundColor: '#ED4276',
           borderRadius: 10,
           barThickness: 26,
           stack: 's'
@@ -149,7 +149,7 @@ if (elT2) {
   });
 }
 
-// ---- Слайдер t4 (pie + bar) ----
+// ---- Слайдер t4 (pie + bar) — под разметку с .slider-controls-out ----
 (() => {
   const slider = document.querySelector('#t4 .slider');
   const c1 = document.getElementById('t4Chart1');
@@ -161,14 +161,11 @@ if (elT2) {
   const primary = (css.getPropertyValue('--primary') || '#1977FF').trim();
   const ink     = (css.getPropertyValue('--ink') || '#0C1C4D').trim();
 
-  // палитры PIE
+  // палитры для PIE
   const pieBase = ['#1d3557','#457b9d','#a8dadc','#f1faee','#e63946','#780000'];
-  const pieDim  = ['rgba(29,53,87,.18)','rgba(69,123,157,.18)','rgba(168,218,220,.18)',
-                   'rgba(241,250,238,.35)','rgba(230,57,70,.18)','rgba(120,0,0,.18)'];
+  const pieDim  = ['rgba(29,53,87,.18)','rgba(69,123,157,.18)','rgba(168,218,220,.18)','rgba(241,250,238,.35)','rgba(230,57,70,.18)','rgba(120,0,0,.18)'];
 
-  const charts = [];
-
-  // PIE
+  // 1) Пирог — сразу (он в первом, видимом слайде)
   const pie = new Chart(c1.getContext('2d'), {
     type:'pie',
     data:{
@@ -192,48 +189,45 @@ if (elT2) {
           onHover(_e,item,legend){ const ch=legend.chart; ch.$hoveredIndex=item.index; ch.update(); },
           onLeave(_e,_item,legend){ const ch=legend.chart; ch.$hoveredIndex=null; ch.update(); }
         },
-        title:{ display:true, text:'Типы научных руководителей', color:ink, font:{ size:18, weight:'bold' }, padding:{ top:6, bottom:16 } },
-        datalabels: window.ChartDataLabels ? {
-          color:'#fff', font:{ weight:'700', size:12 }, formatter:v=>v+'%',
-          offset:(ctx)=>ctx.dataset.data[ctx.dataIndex]<8?6:0,
-          align:(ctx)=>ctx.dataset.data[ctx.dataIndex]<8?'end':'center'
-        } : undefined
+        title:{ display:true, text:'Типы научных руководителей', color:ink, font:{ size:18, weight:'bold' }, padding:{ top:6, bottom:16 } }
       }
     }
   });
-  // корректный «leave» у canvas
   pie.canvas.addEventListener('mouseleave', () => { pie.$hoveredIndex=null; pie.update(); });
-  charts[0] = pie;
 
-  // BAR
-  charts[1] = new Chart(c2.getContext('2d'), {
-    type:'bar',
-    data:{
-      labels:['Только рук-ль','Рук-ль + кафедра','Только кафедра','Нет поддержки'],
-      datasets:[{ data:[54,71,42,28], backgroundColor:primary, borderRadius:8, barThickness:26 }]
-    },
-    options:{
-      indexAxis:'y', responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{ display:false },
-        title:{ display:true, text:'Доля уверенных в защите', color:ink, font:{ size:18, weight:'bold' }, padding:{ top:6, bottom:16 } }
+  // 2) Бар — лениво при первом показе второго слайда
+  let bar = null;
+  function ensureBar() {
+    const existing = Chart.getChart(c2);
+    if (existing) existing.destroy();
+    bar = new Chart(c2.getContext('2d'), {
+      type:'bar',
+      data:{
+        labels:['Только научный руководитель (исследовательские задачи)','Только научный руководитель (исследовательские + организационные задачи)','Научный руководитель + сотрудники подразделения (информационная и организационная поддержка, без руководителя подразделения)','Научный руководитель + сотрудники подразделения (включая руководителя подразделения, в основном информационная поддержка)', 'Научный руководитель + сотрудники подразделения (включая руководителя подразделения, широкая поддержка)', 'Нет никакой поддержки'],
+        datasets:[{ data:[29,28,18,9,5,11], backgroundColor:'#7FCDF4', borderRadius:8, barThickness:26 }]
       },
-      scales:{
-        x:{ ticks:{ color:ink, font:{ size:13, weight:'600' } }, grid:{ color:'rgba(12,28,77,0.1)' } },
-        y:{ ticks:{ color:ink, font:{ size:13 } }, grid:{ display:false } }
-      },
-      animation:{ duration:900, easing:'easeOutCubic' }
-    }
-  });
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ display:false },
+          title:{ display:true, text:'Типы академической поддержки аспирантов', color:ink, font:{ size:18, weight:'bold' }, padding:{ top:6, bottom:16 } } },
+        scales:{
+          x:{ ticks:{ color:ink, font:{ size:13, weight:'600' } }, grid:{ color:'rgba(12,28,77,0.1)' } },
+          y:{ ticks:{ color:ink, font:{ size:13 } }, grid:{ display:false } }
+        },
+        animation:{ duration:900, easing:'easeOutCubic' }
+      }
+    });
+  }
 
-  // ---- Переключение слайдов (с защитой) ----
+  // ---- Переключение слайдов (контролы СНАРУЖИ) ----
   const slides = slider.querySelectorAll('.slide');
-  const controls = slider.querySelector('.slider-controls');
 
-  if (!slides.length || !controls) return; // нет DOM — тихо выходим
+  // ВАЖНО: контролы вынесены — берём .slider-controls-out у #t4
+  const controls = document.querySelector('#t4 .slider-controls-out');
+  if (!slides.length || !controls) return;
 
-  const prev = controls.querySelector('.prev');
-  const next = controls.querySelector('.next');
+  const prev = controls.querySelector('.prev, .slider-btn.prev');
+  const next = controls.querySelector('.next, .slider-btn.next');
   const dots = controls.querySelectorAll('.dot');
 
   let idx = 0;
@@ -248,18 +242,25 @@ if (elT2) {
       d.classList.toggle('is-active', k===idx);
       d.setAttribute('aria-selected', String(k===idx));
     });
-    // перерисовываем активный график (важно для скрытых контейнеров)
-    const ch = charts[idx];
-    if (ch) { ch.resize(); ch.update(); }
+
+    if (idx === 1 && !bar) ensureBar();           // инициализируем второй график
+    const canvas = slides[idx].querySelector('canvas'); // принудительный ресайз
+    const chart  = canvas && Chart.getChart(canvas);
+    if (chart) { chart.resize(); chart.update(); }
   };
 
   prev?.addEventListener('click', e=>{ e.preventDefault(); show(idx-1); });
   next?.addEventListener('click', e=>{ e.preventDefault(); show(idx+1); });
-  dots.forEach(d=> d.addEventListener('click', e=>{ e.preventDefault(); const go = +d.dataset.go; if (!Number.isNaN(go)) show(go); }));
+  dots.forEach(d=> d.addEventListener('click', e=>{
+    e.preventDefault();
+    const go = +d.dataset.go;
+    if (!Number.isNaN(go)) show(go);
+  }));
 
-  // первый показ
+  // старт
   show(0);
 })();
+
 
 
 // t5 — график в пятом тезисе
@@ -337,3 +338,5 @@ if (t5) {
     }
   });
 }
+
+
